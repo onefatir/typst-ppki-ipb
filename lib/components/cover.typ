@@ -4,8 +4,8 @@
 // ---------------------------------------------------------------------------
 #let cover-page(
   title: "",
-  author: "",
-  nim: "",
+  author: (),
+  nim: (),
   logo: none,
   type: "skripsi",
   year: "",
@@ -41,12 +41,21 @@
 
   // Nama penulis (~12cm dari atas)
   v(1fr)
-  align(center)[
-    #text(weight: "bold", upper(author))
-    #if nim != "" [
-      \ #text(size: 12pt, nim)
+  if author.len() > 1 {
+    for (index, name) in author.enumerate() {
+      align(center)[
+        #text(weight: "bold", upper(name)) \
+        #text(size: 12pt, nim.at(index))
+      ]
+    }
+  } else {
+    align(center)[
+      #text(weight: "bold", upper(author))
+      #if nim != "" [
+        \ #text(size: 12pt, nim)
+      ]
     ]
-  ]
+  }
 
   // Logo (~18cm dari atas)
   v(1fr)

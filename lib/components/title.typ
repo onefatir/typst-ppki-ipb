@@ -5,8 +5,8 @@
 // ---------------------------------------------------------------------------
 #let title-page(
   title: "",
-  author: "",
-  nim: "",
+  author: (),
+  nim: (),
   logo: none,
   type: "skripsi",
   year: "",
@@ -45,9 +45,11 @@
   ]
 
   v(1fr)
-  align(center)[
-    #text(weight: "bold", upper(author))
-  ]
+  for name in author {
+    align(center)[
+      #text(weight: "bold", upper(name))
+    ]
+  }
 
   v(1fr)
   align(center)[

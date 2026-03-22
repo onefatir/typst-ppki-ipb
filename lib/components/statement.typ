@@ -4,7 +4,7 @@
 // HALAMAN PERNYATAAN (STATEMENT PAGE)
 // ---------------------------------------------------------------------------
 #let statement-page(
-  author: "",
+  author: (),
   nim: "",
   title: "",
   type: "skripsi",
@@ -38,7 +38,7 @@
     columns: (1fr, 1fr),
     align(left)[Bogor, ............... ],
     align(center)[
-      #author \
+      #author.join(", ") \
       NIM #nim
     ],
   )

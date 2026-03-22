@@ -2,7 +2,7 @@
 // HALAMAN RINGKASAN / SUMMARY
 // ---------------------------------------------------------------------------
 #let ringkasan-page(
-  author: "",
+  author: (),
   nim: "",
   title: "",
   supervisors: (),
@@ -27,7 +27,7 @@
   // Info line
   set par(first-line-indent: 0pt)
   [
-    #text(weight: "bold")[#upper(author)]. #title.
+    #text(weight: "bold")[#author.map(a => upper(a)).join(", ")]. #title.
     #if lang == "id" [Dibimbing oleh ] else [Supervised by ]
     #supervisors.map(s => text(weight: "bold", upper(s))).join(", ").
   ]

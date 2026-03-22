@@ -20,8 +20,8 @@
   type: "skripsi",             // "laporan-akhir" | "skripsi" | "skripsi-fkh" | "tesis" | "disertasi"
   title: "",                   // Judul dalam bahasa Indonesia
   title-en: "",                // Judul dalam bahasa Inggris (opsional)
-  author: "",                  // Nama lengkap penulis
-  nim: "",                     // Nomor Induk Mahasiswa
+  author: (),                  // Nama lengkap penulis
+  nim: (),                     // Nomor Induk Mahasiswa
   department: "",              // Nama departemen
   faculty: "",                 // Nama fakultas/sekolah
   program-studi: "",           // Nama program studi

@@ -5,7 +5,7 @@
   content: [],
   city: "Bogor",
   date: "",
-  author: "",
+  author: (),
 ) = {
   set page(
     margin: (top: 3cm, bottom: 3cm, left: 4cm, right: 3cm),
@@ -30,7 +30,7 @@
     align(right)[
       #city, #date \
       \ \
-      #author
+      #author.join(", ")
     ],
   )
 }
