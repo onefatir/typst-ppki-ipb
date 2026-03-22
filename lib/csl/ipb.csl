@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0"
+  demote-non-dropping-particle="sort-only"
+  default-locale="id-ID">
+
+  <info>
+    <title>IPB University - PPKI Edisi 4 (CSE name-year)</title>
+    <title-short>IPB PPKI</title-short>
+    <id>https://github.com/onefatir/typst-ppki-ipb</id>
+    <link href="https://github.com/onefatir/typst-ppki-ipb" rel="self"/>
+    <link href="https://onefatir.dev" rel="documentation"/>
+    <author>
+      <name>IPB University</name>
+    </author>
+    <category citation-format="author-date"/>
+    <category field="science"/>
+    <category field="biology"/>
+    <summary>Gaya sitasi IPB University berdasarkan Pedoman Penulisan Karya Ilmiah (PPKI) Edisi 4, mengikuti CSE edisi ke-8 sistem nama-tahun.</summary>
+    <updated>2026-03-22T00:00:00+07:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+
+  <!-- ============================================================
+       LOCALE: Indonesian overrides
+       ============================================================ -->
+  <locale xml:lang="id">
+    <terms>
+      <term name="and">dan</term>
+      <term name="et-al">et al.</term>
+      <term name="editor" form="short">editor</term>
+      <term name="edition" form="short">Ed ke-</term>
+      <term name="volume" form="short">Volume</term>
+      <term name="page" form="short">hlm</term>
+      <term name="in">Di dalam</term>
+      <term name="accessed">diakses</term>
+      <term name="no date">tahun tidak diketahui</term>
+      <term name="translator" form="short">penerjemah</term>
+      <term name="anonymous">anonim</term>
+
+      <!-- Month abbreviations (3-letter) per PPKI -->
+      <term name="month-01" form="short">Jan</term>
+      <term name="month-02" form="short">Feb</term>
+      <term name="month-03" form="short">Mar</term>
+      <term name="month-04" form="short">Apr</term>
+      <term name="month-05" form="short">Mei</term>
+      <term name="month-06" form="short">Jun</term>
+      <term name="month-07" form="short">Jul</term>
+      <term name="month-08" form="short">Agu</term>
+      <term name="month-09" form="short">Sep</term>
+      <term name="month-10" form="short">Okt</term>
+      <term name="month-11" form="short">Nov</term>
+      <term name="month-12" form="short">Des</term>
+    </terms>
+  </locale>
+
+  <locale xml:lang="en">
+    <terms>
+      <term name="et-al">et al.</term>
+      <term name="editor" form="short">editor</term>
+      <term name="edition" form="short">Ed</term>
+      <term name="volume" form="short">Volume</term>
+      <term name="page" form="short">hlm</term>
+      <term name="in">Di dalam</term>
+      <term name="accessed">diakses</term>
+      <term name="translator" form="short">penerjemah</term>
+    </terms>
+  </locale>
+
+  <!-- ============================================================
+       MACROS
+       ============================================================ -->
+
+  <!-- Author names for bibliography:
+       Surname AB, Surname CD, Surname EF.
+       - Family name first, then initials without periods
+       - Comma between authors, period at end
+       - For >10 authors: first 10, then et al.
+       - No "and" before last author
+  -->
+  <macro name="author">
+    <names variable="author">
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all"
+        delimiter=", " delimiter-precedes-last="always"/>
+      <label form="short" prefix=", " suffix="."/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="title"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <!-- Author for in-text citation:
+       1 author: Surname
+       2 authors: Surname dan Surname
+       3+ authors: Surname et al.
+  -->
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" and="text" delimiter=", "
+        delimiter-precedes-last="never"
+        et-al-min="3" et-al-use-first="1"/>
+      <et-al font-style="italic"/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="title" form="short"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <!-- Year issued -->
+  <macro name="year-issued">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+      <else>
+        <text term="no date" prefix="[" suffix="]"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- Full date for newspaper, web, etc. -->
+  <macro name="date-issued-full">
+    <date variable="issued">
+      <date-part name="year"/>
+      <date-part name="month" form="short" prefix=" "/>
+      <date-part name="day" prefix=" "/>
+    </date>
+  </macro>
+
+  <!-- Access date -->
+  <macro name="access">
+    <choose>
+      <if variable="URL DOI" match="any">
+        <group>
+          <choose>
+            <if variable="accessed">
+              <text prefix=" [" term="accessed"/>
+              <date variable="accessed" prefix=" " suffix="]">
+                <date-part name="year"/>
+                <date-part name="month" form="short" prefix=" "/>
+                <date-part name="day" prefix=" "/>
+              </date>
+            </if>
+          </choose>
+          <choose>
+            <if variable="DOI">
+              <text variable="DOI" prefix=" doi:"/>
+            </if>
+            <else-if variable="URL">
+              <text variable="URL" prefix=" "/>
+            </else-if>
+          </choose>
+        </group>
+      </if>
+    </choose>
+  </macro>
+
+  <!-- Editor for book chapters / proceedings -->
+  <macro name="editor">
+    <names variable="editor">
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all"
+        delimiter=", " delimiter-precedes-last="always"/>
+      <label form="short" prefix=", "/>
+    </names>
+  </macro>
+
+  <!-- Edition -->
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <text term="edition" form="short"/>
+          <number variable="edition"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- Publisher: "City (Country): Publisher" -->
+  <macro name="publisher">
+    <group delimiter=": ">
+      <text variable="publisher-place"/>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+
+  <!-- Title formatting depending on type -->
+  <macro name="title">
+    <choose>
+      <if type="book thesis report motion_picture" match="any">
+        <text variable="title" font-style="italic"/>
+      </if>
+      <else>
+        <text variable="title"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- ============================================================
+       CITATION (in-text)
+       Format: (Author year) or Author (year)
+       ============================================================ -->
+  <citation et-al-min="3" et-al-use-first="1"
+    disambiguate-add-year-suffix="true"
+    disambiguate-add-names="true"
+    disambiguate-add-givenname="true"
+    collapse="year">
+    <sort>
+      <key macro="author-short"/>
+      <key macro="year-issued"/>
+    </sort>
+    <layout prefix="(" suffix=")" delimiter="; ">
+      <group delimiter=" ">
+        <text macro="author-short"/>
+        <text macro="year-issued"/>
+      </group>
+    </layout>
+  </citation>
+
+  <!-- ============================================================
+       BIBLIOGRAPHY
+       Sorted alphabetically by author, then year
+       Hanging indent, single spacing
+       ============================================================ -->
+  <bibliography hanging-indent="true" et-al-min="11" et-al-use-first="10"
+    entry-spacing="0">
+    <sort>
+      <key macro="author"/>
+      <key macro="year-issued"/>
+      <key variable="title"/>
+    </sort>
+    <layout suffix=".">
+      <group delimiter=". ">
+        <text macro="author"/>
+        <text macro="year-issued"/>
+
+        <choose>
+          <!-- ======== JOURNAL ARTICLE ======== -->
+          <if type="article-journal article-magazine" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <group>
+                <text variable="container-title" font-style="italic" form="short"/>
+                <choose>
+                  <if variable="volume">
+                    <text prefix=". " variable="volume"/>
+                    <text prefix="(" suffix=")" variable="issue"/>
+                    <text prefix=":" variable="page"/>
+                  </if>
+                </choose>
+              </group>
+            </group>
+            <text macro="access"/>
+          </if>
+
+          <!-- ======== BOOK ======== -->
+          <else-if type="book" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text macro="edition"/>
+              <text macro="publisher"/>
+            </group>
+          </else-if>
+
+          <!-- ======== BOOK CHAPTER ======== -->
+          <else-if type="chapter" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <group>
+                <text term="in" suffix=": "/>
+                <text macro="editor" suffix="."/>
+                <text variable="container-title" font-style="italic" prefix=" "/>
+              </group>
+              <text macro="publisher"/>
+              <group>
+                <text term="page" form="short" suffix=" "/>
+                <text variable="page"/>
+              </group>
+            </group>
+          </else-if>
+
+          <!-- ======== CONFERENCE PAPER / PROCEEDINGS ======== -->
+          <else-if type="paper-conference" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <group>
+                <text term="in" suffix=": "/>
+                <text macro="editor" suffix="."/>
+                <text variable="container-title" font-style="italic" prefix=" "/>
+              </group>
+              <text variable="event" prefix="; "/>
+              <text macro="publisher"/>
+              <group>
+                <text term="page" form="short" suffix=" "/>
+                <text variable="page"/>
+              </group>
+            </group>
+            <text macro="access"/>
+          </else-if>
+
+          <!-- ======== THESIS ======== -->
+          <else-if type="thesis" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text variable="genre" prefix="[" suffix="]"/>
+              <text macro="publisher"/>
+            </group>
+          </else-if>
+
+          <!-- ======== REPORT ======== -->
+          <else-if type="report" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text macro="publisher"/>
+            </group>
+          </else-if>
+
+          <!-- ======== WEBPAGE ======== -->
+          <else-if type="webpage post post-weblog" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text variable="container-title"/>
+            </group>
+            <text macro="access"/>
+          </else-if>
+
+          <!-- ======== NEWSPAPER ======== -->
+          <else-if type="article-newspaper" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text variable="container-title"/>
+            </group>
+            <text macro="access"/>
+          </else-if>
+
+          <!-- ======== LEGISLATION ======== -->
+          <else-if type="legislation legal_case bill" match="any">
+            <text macro="title"/>
+          </else-if>
+
+          <!-- ======== PATENT ======== -->
+          <else-if type="patent" match="any">
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text variable="number"/>
+            </group>
+          </else-if>
+
+          <!-- ======== DEFAULT / FALLBACK ======== -->
+          <else>
+            <group delimiter=". ">
+              <text macro="title"/>
+              <text variable="container-title" font-style="italic"/>
+              <text macro="publisher"/>
+            </group>
+            <text macro="access"/>
+          </else>
+        </choose>
+      </group>
+    </layout>
+  </bibliography>
+</style>
