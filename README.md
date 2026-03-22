@@ -15,11 +15,20 @@ Template Typst untuk penulisan karya ilmiah sesuai **Pedoman Penulisan Karya Ilm
 ## Struktur File
 
 ```
-ipb-ppki/
-├── lib.typ         # Template utama (import ini)
-├── example.typ     # Contoh penggunaan lengkap
-├── ipb.png         # Logo IPB (ganti sesuai kebutuhan)
-└── README.md       # Dokumentasi ini
+.
+├── README.md
+├── LICENSE
+├── examples/
+│   ├── main.typ      # Contoh penggunaan lengkap
+│   ├── bab-1.typ ... bab-5.typ
+│   └── refs.bib
+└── lib/
+  ├── ppki.typ      # Template utama (import ini)
+  ├── components/   # Komponen halaman & utilitas
+  ├── csl/
+  │   └── ipb.csl   # Citation Style Language
+  └── icons/
+    └── ipb.png   # Logo IPB
 ```
 
 ## Cara Cepat Memulai
@@ -39,7 +48,7 @@ ipb-ppki/
   faculty: "Nama Fakultas",
   program-studi: "Nama Program Studi",
   year: "2026",
-  logo: "ipb.png",
+  logo: "./lib/icons/ipb.png",
   supervisors: ("Prof Dr Pembimbing 1", "Dr Pembimbing 2"),
   examiners: ("Dr Penguji 1", "Dr Penguji 2"),
 )
