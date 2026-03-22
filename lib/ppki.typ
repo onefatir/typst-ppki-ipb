@@ -105,6 +105,24 @@
   // Atur heading
   set heading(numbering: ipb-heading-numbering)
 
+  // Enum dan list di bawah sub-subbab (level 3): marker sejajar dengan heading (0.5cm)
+  // pad(left: 1cm) → body teks di 1cm, marker hang ke ~0.5cm (sejajar heading sub-subbab)
+  show enum: it => context {
+    if counter(heading).get().len() == 3 {
+      pad(left: 1cm)[#it]
+    } else {
+      it
+    }
+  }
+
+  show list: it => context {
+    if counter(heading).get().len() == 3 {
+      pad(left: 1cm)[#it]
+    } else {
+      it
+    }
+  }
+
   // Bab (I, II, dst.): centered, bold, huruf kapital, 14pt (Lampiran 16 x poin 9, Lampiran 17)
   // Format: "II TINJAUAN PUSTAKA" (angka Romawi + judul, tanpa kata "BAB")
   show heading.where(level: 1): it => {
@@ -154,13 +172,13 @@
         let num = counter(heading).display(it.numbering)
         pad(left: 0.5cm)[#num #h(0.5em) #it.body]
       } else {
-        pad(left: 0.5cm, it.body)
+        pad(left: 0.5cm)[#it.body]
       }
     ]
     v(0cm) // ~1 spasi ke paragraf di bawahnya
   }
 
-  // Sub-sub-subbab (2.1.1.1): di tepi kiri, TIDAK bold
+  // Sub-sub-subbab (2.1.1.1): menjorok 1cm, TIDAK bold (Lampiran 17)
   // Catatan: pengebaban 4 tingkat tidak disarankan (Lampiran 17)
   show heading.where(level: 4): it => {
     v(0.2cm)
@@ -169,9 +187,9 @@
       #set par(first-line-indent: 0pt)
       #if it.numbering != none {
         let num = counter(heading).display(it.numbering)
-        pad(left: 0.5cm)[#num #h(0.5em) #it.body]
+        pad(left: 1cm)[#num #h(0.5em) #it.body]
       } else {
-        pad(left: 0.5cm, it.body)
+        pad(left: 1cm)[#it.body]
       }
     ]
     v(0cm)
