@@ -123,6 +123,15 @@
     }
   }
 
+  // Paragraf di bawah sub-subbab (2.1.1): geser 0.5cm agar sejajar level heading 3
+  show par: it => context {
+    if counter(heading).get().len() == 3 {
+      pad(left: 0.5cm)[#it]
+    } else {
+      it
+    }
+  }
+
   // Bab (I, II, dst.): centered, bold, huruf kapital, 14pt (Lampiran 16 x poin 9, Lampiran 17)
   // Format: "II TINJAUAN PUSTAKA" (angka Romawi + judul, tanpa kata "BAB")
   show heading.where(level: 1): it => {
