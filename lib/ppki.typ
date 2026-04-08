@@ -156,6 +156,7 @@
   // Subbab (2.1): tepi kiri, bold (Lampiran 16 poin 10, Lampiran 17)
   // Jarak: 2 spasi dari paragraf/bab di atasnya, 1 spasi ke paragraf di bawahnya
   show heading.where(level: 2): it => {
+    // v(0.55cm) // ~2 spasi dari paragraf di atasnya (2 × single line height)
     v(0.55cm) // ~2 spasi dari paragraf di atasnya (2 × single line height)
     [
       #set text(size: 12pt, weight: "bold")
