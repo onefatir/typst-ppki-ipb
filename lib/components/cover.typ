@@ -7,14 +7,14 @@
   author: (),
   nim: (),
   logo: none,
-  type: "skripsi",
+  tipe: "skripsi",
   year: "",
   department: "",
   faculty: "",
   program-studi: "",
   institution-lines: none,
 ) = {
-  let cfg = _doc-config.at(type)
+  let cfg = _doc-config.at(tipe)
 
   // Hitung baris institusi
   let inst-lines = if institution-lines != none {
@@ -41,7 +41,7 @@
 
   // Nama penulis (~12cm dari atas)
   v(1fr)
-  if author.len() > 1 {
+  if type(author) == array and author.len() > 1 {
     for (index, name) in author.enumerate() {
       align(center)[
         #text(weight: "bold", upper(name)) \

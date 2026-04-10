@@ -234,7 +234,7 @@
       author: author,
       nim: nim,
       logo: logo,
-      type: type,
+      tipe: type,
       year: year,
       department: department,
       faculty: faculty,
